@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const User_Model = require('../models/User');
 
-const SECRET_KEY = process.env.SECRET_KEY;
+// const SECRET_KEY = process.env.SECRET_KEY;
 
 const validateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];

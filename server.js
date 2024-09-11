@@ -1,10 +1,11 @@
-const express = require("express");
 require("dotenv").config();
+const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const colors = require("colors");
 const cors = require("cors");
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+// const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const keys = require('./config/keys');
 
 // Route Files
 const mainRoutes = require("./routes");
@@ -20,12 +21,13 @@ const leadsRoutes = require("./routes/leads-route");
 const userStatsRoutes = require("./routes/user-stats-route");
 const linksTrackRoutes = require("./routes/link-track");
 const projectTimelineRoutes = require("./routes/projectTimelineRoutes");
-
+const certificateRoutes = require('./routes/certificate-route');
 const featuresRoutes = require("./routes/features");
-
+const courseRouter = require("./routes/course-route");
+const videoRouter = require("./routes/video-router");
 
 // DB Connection
-const db = process.env.MONGODB_URI;
+const db = keys.MongoURI;
 
 // Connect MongoDB
 mongoose
@@ -36,6 +38,18 @@ mongoose
   .then(() => console.log("MongoDB Connected".green.bold))
   .catch((err) => console.log(err));
 
+// // DB Connection
+// const db = process.env.MONGODB_URI;
+
+// // Connect MongoDB
+// mongoose
+//   .connect(db, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => console.log("MongoDB Connected".green.bold))
+//   .catch((err) => console.log(err));
+
 // Logging Middleware function
 const loggingMiddleware = (req, res, next) => {
   console.log(`Received ${req.method} request for ${req.url}`.cyan.bold);
@@ -44,12 +58,20 @@ const loggingMiddleware = (req, res, next) => {
 
 const app = express();
 
+
 app.use(cors(), loggingMiddleware);
 
-app.use(express.urlencoded({ limit: "50mb" }));
+// app.use(express.urlencoded({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
+
 
 // For APIs
 app.use("/api/v1/main/libs", express.json({ limit: "50mb" }), featuresRoutes);
+
+// Route Middlewareo
+app.use("/api/data/course",express.json({ limit: "50mb" }), courseRouter);  // Correct course route
+app.use("/api/data/certificate",express.json({ limit: "50mb" }), certificateRoutes); // Correct certificate route
+app.use("/api/data/video",express.json({ limit: "50mb" }), videoRouter); // Correct certificate route
 
 // Routing for API Service
 app.use("/api/v1/main", express.json({ limit: "50mb" }), mainRoutes);

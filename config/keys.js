@@ -4,6 +4,6 @@
 // };
   
 module.exports = {
-    MongoURI: 'mongodb+srv://shiva:ugCaHu06K3UrGvqj@cluster0.kitrdr3.mongodb.net/leadingly?retryWrites=true&w=majority'
+    MongoURI: 'mongodb+srv://admin:K7W7rhdwmsHpCF4x@cluster0.0z8jw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 }
   
