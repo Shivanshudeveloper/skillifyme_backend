@@ -6,7 +6,7 @@ const createCourse = async (req, res) => {
         // Log the request body to verify data
         console.log('Request Body:', req.body);
 
-        const { title, description, courseID, userID, price } = req.body;
+        const { title,subtitle, description, courseID, userID, price,level } = req.body;
 
         // Check if any field is missing
         if (!title || !description || !courseID || !userID || !price) {
@@ -15,10 +15,12 @@ const createCourse = async (req, res) => {
 
         const newCourse = new Course({
             title,
+            subtitle,
             description,
             courseID,
             userID,
             price,
+            level,
             createdAt: new Date()
         });
 
@@ -112,12 +114,14 @@ const deleteCourseById = async (req, res) => {
     }
 };
 
+
+
 module.exports = {
     createCourse,
     getAllCourses,
     getCourseById,
     getCoursesByUserId,
     updateCourseById,
-    deleteCourseById
+    deleteCourseById,
 };
 

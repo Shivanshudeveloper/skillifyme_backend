@@ -22,12 +22,12 @@ const videoSchema = new mongoose.Schema({
         required: [true, 'Course title is required']
     },
     userID: {
-        type: String, // or ObjectId if you're linking to a User model
+        type: String, 
         required: [true, 'User ID is required']
     },
     createdAt: {
         type: Date,
-        default: Date.now // Automatically sets the timestamp
+        default: Date.now 
     }
 });
 

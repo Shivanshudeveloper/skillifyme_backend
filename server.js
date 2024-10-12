@@ -25,6 +25,7 @@ const certificateRoutes = require('./routes/certificate-route');
 const featuresRoutes = require("./routes/features");
 const courseRouter = require("./routes/course-route");
 const videoRouter = require("./routes/video-router");
+const fileRouter = require("./routes/file-router");
 
 // DB Connection
 const db = keys.MongoURI;
@@ -72,6 +73,7 @@ app.use("/api/v1/main/libs", express.json({ limit: "50mb" }), featuresRoutes);
 app.use("/api/data/course",express.json({ limit: "50mb" }), courseRouter);  // Correct course route
 app.use("/api/data/certificate",express.json({ limit: "50mb" }), certificateRoutes); // Correct certificate route
 app.use("/api/data/video",express.json({ limit: "50mb" }), videoRouter); // Correct certificate route
+app.use("/api/data/files",express.json({ limit: "50mb" }), fileRouter); // Correct file route
 
 // Routing for API Service
 app.use("/api/v1/main", express.json({ limit: "50mb" }), mainRoutes);

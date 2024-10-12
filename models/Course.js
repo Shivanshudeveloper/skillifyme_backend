@@ -5,6 +5,10 @@ const courseSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Course title is required']
     },
+    subtitle : {
+        type : String, 
+        required : [true, "Course Sub-title is required"]
+    },
     description: {
         type: String,
         required: [true, 'Course description is required']
@@ -12,11 +16,11 @@ const courseSchema = new mongoose.Schema({
     courseID: {
         type: String,
         required: [true, 'Course ID is required'],
-        unique: true // Ensures that courseID is unique
+        unique: true 
     },
     userID: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User', // Reference to User model
+        ref: 'User', 
         required: [true, 'User ID is required']
     },
     price: {
@@ -25,7 +29,11 @@ const courseSchema = new mongoose.Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now // Automatically adds the current timestamp
+        default: Date.now 
+    },
+    level : {
+        type : String,
+        required : [true, "Level is required"]
     }
 });
 
