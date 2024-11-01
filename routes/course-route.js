@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const courseController = require('../controllers/course/index'); // Correct controller path
+const courseController = require('../controllers/course/index');
 
-router.post('/create', courseController.createCourse);
+router.post('/create', courseController.createCourse); 
 router.get('/', courseController.getAllCourses);
-router.get('/:id', courseController.getCourseById);
+router.get('/:id', courseController.getCourseById); 
 router.get('/user/:userID', courseController.getCoursesByUserId);
 router.put('/:id', courseController.updateCourseById);
 router.delete('/:id', courseController.deleteCourseById);

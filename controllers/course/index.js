@@ -1,16 +1,11 @@
 const Course = require('../../models/Course'); // Ensure the correct path
 
-// Create a new course
 const createCourse = async (req, res) => {
     try {
-        // Log the request body to verify data
-        console.log('Request Body:', req.body);
+        const { title, subtitle, description, courseID, userID, price, level } = req.body;
 
-        const { title,subtitle, description, courseID, userID, price,level } = req.body;
-
-        // Check if any field is missing
-        if (!title || !description || !courseID || !userID || !price) {
-            return res.status(400).json({ message: 'All fields are required: title, description, courseID, userID, and price' });
+        if (!title || !subtitle || !description || !courseID || !userID || !price || !level) {
+            return res.status(400).json({ message: 'All fields are required' });
         }
 
         const newCourse = new Course({
@@ -24,10 +19,25 @@ const createCourse = async (req, res) => {
             createdAt: new Date()
         });
 
-        await newCourse.save();
-        res.status(201).json({ message: 'Course created successfully', newCourse });
+        const savedCourse = await newCourse.save();
+        res.status(201).json({ message: 'Course created successfully', newCourse: savedCourse });
     } catch (error) {
         res.status(500).json({ message: 'Error creating course', error });
+    }
+};
+
+// Get course by ID, including linked videos
+const getCourseById = async (req, res) => {
+    try {
+        const course = await Course.findById(req.params.id).populate('videos'); // Populate videos
+
+        if (!course) {
+            return res.status(404).json({ message: 'Course not found' });
+        }
+
+        res.status(200).json(course);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching course', error });
     }
 };
 
@@ -41,20 +51,6 @@ const getAllCourses = async (req, res) => {
     }
 };
 
-// Get course by ID
-const getCourseById = async (req, res) => {
-    try {
-        const course = await Course.findById(req.params.id);
-
-        if (!course) {
-            return res.status(404).json({ message: 'Course not found' });
-        }
-
-        res.status(200).json(course);
-    } catch (error) {
-        res.status(500).json({ message: 'Error fetching course', error });
-    }
-};
 
 // Get courses by userID
 const getCoursesByUserId = async (req, res) => {

@@ -5,6 +5,10 @@ const videoSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Video title is required']
     },
+    subtitle: {
+        type: String,
+        required: [true, 'Video Sub-title is required']
+    },
     description: {
         type: String,
         required: [true, 'Video description is required']
@@ -14,16 +18,9 @@ const videoSchema = new mongoose.Schema({
         required: [true, 'Video URL is required']
     },
     courseID: {
-        type: String,
-        required: [true, 'Course ID is required']
-    },
-    courseTitle: {
-        type: String,
-        required: [true, 'Course title is required']
-    },
-    userID: {
-        type: String, 
-        required: [true, 'User ID is required']
+        type: mongoose.Schema.Types.ObjectId,  
+        ref: 'Course',
+        required: true,
     },
     createdAt: {
         type: Date,

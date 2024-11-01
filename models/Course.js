@@ -5,9 +5,9 @@ const courseSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Course title is required']
     },
-    subtitle : {
-        type : String, 
-        required : [true, "Course Sub-title is required"]
+    subtitle: {
+        type: String,
+        required: [true, 'Course subtitle is required']
     },
     description: {
         type: String,
@@ -16,26 +16,30 @@ const courseSchema = new mongoose.Schema({
     courseID: {
         type: String,
         required: [true, 'Course ID is required'],
-        unique: true 
+        unique: true
     },
     userID: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User', 
+        ref: 'User',
         required: [true, 'User ID is required']
     },
+    videos: [{
+        type: mongoose.Schema.Types.ObjectId, // Linking with Video Model
+        ref: 'Video'
+    }],
     price: {
         type: Number,
         required: [true, 'Price is required']
     },
+    level: {
+        type: String,
+        required: [true, 'Level is required']
+    },
     createdAt: {
         type: Date,
-        default: Date.now 
-    },
-    level : {
-        type : String,
-        required : [true, "Level is required"]
+        default: Date.now
     }
 });
 
-const Course = mongoose.model('Course', courseSchema); // Capitalized model name
+const Course = mongoose.model('Course', courseSchema);
 module.exports = Course;
